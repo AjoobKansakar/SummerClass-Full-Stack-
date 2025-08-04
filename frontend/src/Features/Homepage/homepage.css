@@ -1,0 +1,21 @@
+body {
+    background-color: white;
+    height: 100%;
+}
+
+body {
+    background-color: white;
+    height: 100%;
+}
+
+.nav-bar {
+    display: flex;
+    background-color: black;
+}
+
+.nav-bar .nav-left {
+    color: white;
+    flex: 1;
+    width: 100%;
+    height: auto;
+}
