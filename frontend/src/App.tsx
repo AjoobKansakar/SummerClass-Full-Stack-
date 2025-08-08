@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import LoginGuard from './Shared/config/guards/login_guard'
 import Login from './Features/Login/login'

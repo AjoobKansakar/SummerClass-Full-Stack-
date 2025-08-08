@@ -53,7 +53,7 @@ export default function Login() {
 
                 <p className="swicher">
                     Don't have an account? {""}
-                    < span onClick={() => navigate('/register')} style={{ color: 'blue', cursor: 'pointer'}}>
+                    < span onClick={() => navigate('/register')} style={{ color: 'white', cursor: 'pointer',}}>
                         Register here
                     </span>
                 </p>

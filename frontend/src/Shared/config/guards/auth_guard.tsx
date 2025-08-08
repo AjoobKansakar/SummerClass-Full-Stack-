@@ -1,20 +1,21 @@
-import type { JSX } from 'react';
-import { Navigate } from 'react-router-dom';
-
+import type { JSX } from "react";
+import { Navigate } from "react-router-dom";
 
 interface AuthGuardProps {
-    children: JSX.Element;
+  children: JSX.Element;
 }
 
-const AuthGuard = ({children}: AuthGuardProps) => {
-    const token = localStorage.getItem ('token');
-    const user = localStorage.getItem('currentUser');
+const AuthGuard = ({ children }: AuthGuardProps) => {
+  const token = localStorage.getItem("token");
+  const user = localStorage.getItem("currentUser");
 
-    if (token && user) {
-        return <Navigate to="/home" replace />;
-    } else {
-        return children;
-    }
+  console.log("authguard");
+
+  if (!token || !user) {
+    return <Navigate to="/login" replace />;
+  } else {
+    return children;
+  }
 };
 
-export default AuthGuard
+export default AuthGuard;
