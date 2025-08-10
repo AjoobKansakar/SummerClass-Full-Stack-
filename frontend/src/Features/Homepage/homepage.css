@@ -1,21 +1,50 @@
-body {
-    background-color: white;
-    height: 100%;
+* {
+    margin: 0;
+    padding: 0;
+    /* height: 100vh; */
 }
 
 body {
-    background-color: white;
-    height: 100%;
-}
-
-.nav-bar {
     display: flex;
-    background-color: black;
 }
 
-.nav-bar .nav-left {
-    color: white;
-    flex: 1;
+/* .homepage-wrapper {
+    border: 2px solid red;
+} */
+
+.top-navigation {
+    border: 2px solid black;
     width: 100%;
     height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: hsl(240, 35%, 58%);
+    display: flex;
+}
+
+.top-navigation p {
+    font-weight: bold;
+    font-size: 2em;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+.top-navigation button {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    border: 2px solid white;
+    width: 150px;
+    height: auto;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 12px;
+    font-weight: bold;
+}   
+
+.hero-wrapper {
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
 }

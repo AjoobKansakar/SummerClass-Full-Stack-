@@ -1,8 +1,8 @@
-import { useEffect,useState, type ChangeEvent } from 'react';
-import './homepage.css';
-import {useNavigate} from 'react-router-dom';
-import type { AxiosResponse } from 'axios';
-import { searchUserApi } from '../../Shared/config/api';
+import { useEffect, useState, type ChangeEvent } from "react";
+import "./homepage.css";
+import { useNavigate } from "react-router-dom";
+import type { AxiosResponse } from "axios";
+import { searchUserApi } from "../../Shared/config/api";
 
 interface IUser {
   _id: string;
@@ -13,43 +13,41 @@ interface IUser {
 interface IUserResponse {
   message: string;
   users: IUser[];
-
 }
 
 function Home() {
   const navigate = useNavigate();
-  const userString = localStorage.getItem('currentUser');
+  const userString = localStorage.getItem("currentUser");
   if (!userString) {
-    navigate('/login'); 
+    navigate("/login");
     return null;
   }
   const user: IUser = JSON.parse(userString);
   const [userList, setUserList] = useState<IUser[]>([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
-  const [selectedTag, setSelectedTag] = useState<string>('All');
-  const searchTags: string[] = ["All", 'Designer', 'Developer', 'Photographer'];
+  const [selectedTag, setSelectedTag] = useState<string>("All");
+  const searchTags: string[] = ["All", "Designer", "Developer", "Photographer"];
 
   useEffect(() => {
     setLoading(true);
     // ALl
     if (selectedTag === "All") {
-      searchUserApi(search).then(
-        (res: AxiosResponse<IUserResponse>) => {
+      searchUserApi(search)
+        .then((res: AxiosResponse<IUserResponse>) => {
           setUserList(res.data.users);
-        }
-      ).finally(() => {
-        setLoading(false);
-      });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     } else {
-      
-      searchUserApi(search, selectedTag).then(
-        (res: AxiosResponse<IUserResponse>) => {
+      searchUserApi(search, selectedTag)
+        .then((res: AxiosResponse<IUserResponse>) => {
           setUserList(res.data.users);
-        }
-      ).finally(() => {
-        setLoading(false);
-      });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
   }, [search, selectedTag]);
 
@@ -64,19 +62,24 @@ function Home() {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate('/');
+    navigate("/");
   };
 
   return (
+    // Html code:
     <div className="homepage-wrapper">
       <div className="top-navigation">
         <p>Welcome back, {user.username.toUpperCase()}</p>
-        <button onClick={handleLogout} className="button-primary button-light logout-button">
+        <button
+          onClick={handleLogout}
+          className="button-primary button-light logout-button"
+        >
           Logout
         </button>
       </div>
 
       <div className="hero-wrapper">
+        <h1> Search Your Professional </h1>
         <input
           type="text"
           onChange={onValueChange}
@@ -88,7 +91,7 @@ function Home() {
           {searchTags.map((tag: string) => (
             <div
               key={tag}
-              className={`pills${selectedTag === tag ? ' selected' : ''}`}
+              className={`pills${selectedTag === tag ? " selected" : ""}`}
               onClick={() => handleTagClick(tag)}
             >
               {tag}
@@ -113,7 +116,6 @@ function Home() {
         )}
       </div>
     </div>
-    
   );
 }
 
