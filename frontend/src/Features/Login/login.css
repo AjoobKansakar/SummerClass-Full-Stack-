@@ -17,7 +17,7 @@ body {
 }
 
 /* Container */
-.container {
+.login-container {
     position: relative;
     margin-top: 50%;
 }
@@ -95,18 +95,4 @@ body {
 .login-form button:hover {
     background-color: #005fa3;
     transform: scale(1.02);
-
-/* for some animations */
-    
-    @keyframes fadein {
-        from {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-    
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
 }
