@@ -67,7 +67,6 @@ export default function Register() {
           className="input-box"
           placeholder="Password"
           name="password"
-          onChange={handleChange}
         />
         <input
           type="password"
