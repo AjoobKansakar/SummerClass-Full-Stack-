@@ -6,11 +6,9 @@
 
 body {
     display: flex;
+    position: relative;
 }
 
-/* .homepage-wrapper {
-    border: 2px solid red;
-} */
 
 .top-navigation {
     border: 2px solid black;
@@ -19,7 +17,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: hsl(240, 35%, 58%);
+    background-color: #6e6eb9;
     display: flex;
 }
 
@@ -44,7 +42,54 @@ body {
 }   
 
 .hero-wrapper {
-    /* border: 1px solid red; */
+    position: absolute;
+    top: 80px;
+    left: 580px;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.hero-wrapper input{
+    width: 100%;
+    border: 2px solid hsl(0, 0%, 0%);
+    font-size: 0.8em;
+    font-weight: bold;
+    transition: all 0.2s ease-in;
+}
+
+.hero-wrapper input:hover {
+    transform: scale(1.01);
+}
+
+.search-tags {
     display: flex;
-    flex-direction: column;
+    gap: 20px;
+    position: absolute;
+    top: 180px;
+    left: 700px;
+    font-size: 1em;
+    color: #6e6eb9;
+    transition: all 0.3s ease-in;
+}
+
+.search-tags .pills:hover {
+    color: #000;
+    transform: scale(1.05);
+}
+
+.results {
+    display: flex;
+    gap: 20%;
+    
+}
+
+.results .card {
+    border: 1px solid black;
+    width: 250px;
+    height: auto;
+    font-size: 1.3em;
+    border-radius: 12px;
+    box-shadow: 1px 4px 10px #474747;
+    padding: 20px;
+    flex-wrap: wrap;
 }

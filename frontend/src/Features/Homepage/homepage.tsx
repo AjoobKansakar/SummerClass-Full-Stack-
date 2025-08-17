@@ -70,10 +70,7 @@ function Home() {
     <div className="homepage-wrapper">
       <div className="top-navigation">
         <p>Welcome back, {user.username.toUpperCase()}</p>
-        <button
-          onClick={handleLogout}
-          className="button-primary button-light logout-button"
-        >
+        <button onClick={handleLogout} className="log-outBtn">
           Logout
         </button>
       </div>
@@ -86,35 +83,35 @@ function Home() {
           value={search}
           placeholder="Search"
         />
-
-        <div className="search-tags">
-          {searchTags.map((tag: string) => (
-            <div
-              key={tag}
-              className={`pills${selectedTag === tag ? " selected" : ""}`}
-              onClick={() => handleTagClick(tag)}
-            >
-              {tag}
-            </div>
-          ))}
-        </div>
-
-        {!loading && (
-          <div className="results">
-            {userList.length > 0 ? (
-              userList.map((user: IUser) => (
-                <div className="card" key={user._id}>
-                  <h3>{user.username}</h3>
-                  <p>{user.role || "No role set"}</p>
-                  <p>{user.email || "No email"}</p>
-                </div>
-              ))
-            ) : (
-              <p>No users found.</p>
-            )}
-          </div>
-        )}
       </div>
+
+      <div className="search-tags">
+        {searchTags.map((tag: string) => (
+          <div
+            key={tag}
+            className={`pills${selectedTag === tag ? " selected" : ""}`}
+            onClick={() => handleTagClick(tag)}
+          >
+            {tag}
+          </div>
+        ))}
+      </div>
+
+      {!loading && (
+        <div className="results">
+          {userList.length > 0 ? (
+            userList.map((user: IUser) => (
+              <div className="card" key={user._id}>
+                <h3>{user.username}</h3>
+                <p>{user.role || "No role set"}</p>
+                <p>{user.email || "No email"}</p>
+              </div>
+            ))
+          ) : (
+            <p>No users found.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
