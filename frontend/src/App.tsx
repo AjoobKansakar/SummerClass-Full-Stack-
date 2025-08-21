@@ -5,6 +5,7 @@ import Login from "./Features/Login/login";
 import Register from "./Features/Register/register";
 import AuthGuard from "./Shared/config/guards/auth_guard";
 import Home from "./Features/Homepage/homepage";
+import ProfilePage from "./Features/ProfilePage/profilepage";
 
 function App() {
   return (
@@ -31,6 +32,14 @@ function App() {
         element={
           <AuthGuard>
             <Home />
+          </AuthGuard>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <AuthGuard>
+            <ProfilePage />
           </AuthGuard>
         }
       />

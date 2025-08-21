@@ -1,6 +1,6 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import "./homepage.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { AxiosResponse } from "axios";
 import { searchUserApi } from "../../Shared/config/api";
 import SearchIcon from "../../assets/Search_icon.svg";
@@ -20,14 +20,22 @@ interface IUserResponse {
 function Home() {
   const navigate = useNavigate();
   const userString = localStorage.getItem("currentUser");
+
+  useEffect(() => {
+    if (!userString) {
+      navigate("/login");
+    }
+  }, [navigate, userString]);
+
   if (!userString) {
-    navigate("/login");
     return null;
   }
+
   const user: IUser = JSON.parse(userString);
+
   const [userList, setUserList] = useState<IUser[]>([]);
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [selectedTag, setSelectedTag] = useState<string>("All");
   const searchTags: string[] = [
     "All",
@@ -40,29 +48,26 @@ function Home() {
 
   useEffect(() => {
     setLoading(true);
-    // ALl
-    if (selectedTag === "All") {
-      searchUserApi(search)
-        .then((res: AxiosResponse<IUserResponse>) => {
-          setUserList(res.data.users);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    } else {
-      searchUserApi(search, selectedTag)
-        .then((res: AxiosResponse<IUserResponse>) => {
-          setUserList(res.data.users);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
-  }, [search, selectedTag]);
+    const apiCall =
+      selectedTag === "All"
+        ? searchUserApi(search)
+        : searchUserApi(search, selectedTag);
+
+    apiCall
+      .then((res: AxiosResponse<IUserResponse>) => {
+        setUserList(res.data.users.filter((u) => u._id !== user._id));
+      })
+      .catch((error) => {
+        console.error("Failed to fetch users:", error);
+        setUserList([]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [search, selectedTag, user._id]);
 
   const onValueChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearch(value);
+    setSearch(e.target.value);
   };
 
   const handleTagClick = (tag: string) => {
@@ -74,57 +79,84 @@ function Home() {
     navigate("/");
   };
 
+  const getInitials = (name: string) => {
+    return name.charAt(0).toUpperCase();
+  };
+
   return (
-    // Html code:
-    <div className="homepage-wrapper">
-      <div className="top-navigation">
-        <p>Welcome back, {user.username.toUpperCase()}</p>
-        <button onClick={handleLogout} className="log-outBtn">
-          Logout
-        </button>
-      </div>
-      <div className="hero-wrapper">
-        <h1>Search Your Professional</h1>
-
-        <div className="search-bar">
-          <img src={SearchIcon} alt="Search" className="search-icon" />
-          <input
-            id="search-text"
-            type="text"
-            onChange={onValueChange}
-            value={search}
-            placeholder="Search"
-          />
-        </div>
-      </div>
-      <div className="search-tags">
-        {searchTags.map((tag: string) => (
-          <div
-            key={tag}
-            className={`pills${selectedTag === tag ? " selected" : ""}`}
-            onClick={() => handleTagClick(tag)}
-          >
-            {tag}
+    <>
+      <header className="top-navigation">
+        <div className="nav-container">
+          <p className="welcome-text">Welcome back, {user.username}</p>
+          <div className="nav-buttons">
+            <Link to="/profile">
+              <button className="profile-btn">Profile</button>
+            </Link>
+            <button onClick={handleLogout} className="logout-btn">
+              Logout
+            </button>
           </div>
-        ))}
-      </div>
+        </div>
+      </header>
 
-      {!loading && (
-        <div className="results">
-          {userList.length > 0 ? (
-            userList.map((user: IUser) => (
-              <div className="card" key={user._id}>
-                <h3>{user.username}</h3>
-                <p>{user.role}</p>
-                <p>{user.email || "No email"}</p>
+      <main className="homepage-container">
+        <div className="hero-section">
+          <h1>Find Your Next Connection</h1>
+          <p className="subtitle">
+            Explore a network of talented professionals
+          </p>
+          <div className="search-bar">
+            <img src={SearchIcon} alt="Search" className="search-icon" />
+            <input
+              id="search-text"
+              type="text"
+              onChange={onValueChange}
+              value={search}
+              placeholder="Search by name or keyword..."
+            />
+          </div>
+        </div>
+
+        <div className="search-tags">
+          {searchTags.map((tag: string) => (
+            <button
+              key={tag}
+              className={`tag-pill ${selectedTag === tag ? "selected" : ""}`}
+              onClick={() => handleTagClick(tag)}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+
+        <div className="results-grid">
+          {loading ? (
+            <p>Loading professionals...</p>
+          ) : userList.length > 0 ? (
+            userList.map((professional: IUser) => (
+              <div className="user-card" key={professional._id}>
+                <div className="card-header">
+                  <div className="avatar-circle">
+                    <span>{getInitials(professional.username)}</span>
+                  </div>
+                  <div className="user-info">
+                    <h3 className="user-name">{professional.username}</h3>
+                    <p className="user-role">
+                      {professional.role || "Professional"}
+                    </p>
+                  </div>
+                </div>
+                <p className="user-email">
+                  {professional.email || "No email provided"}
+                </p>
               </div>
             ))
           ) : (
-            <p>No users found.</p>
+            <p>No professionals found matching your criteria.</p>
           )}
         </div>
-      )}
-    </div>
+      </main>
+    </>
   );
 }
 
