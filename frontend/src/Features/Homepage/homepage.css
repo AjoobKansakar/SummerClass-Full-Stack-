@@ -6,6 +6,7 @@
 body {
     display: flex;
     position: relative;
+    flex-wrap: wrap;
 }
 
 
@@ -102,7 +103,14 @@ body {
   margin-top: 10px;
   position: absolute;
   top: 28%;
-  right: 40%;
+  right: 32%;
+}
+
+.search-tags .pills {
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .search-tags .pills:hover {
@@ -112,7 +120,11 @@ body {
 
 .results {
     display: flex;
+    flex-wrap: wrap;
     gap: 10%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
 }
 
 .results .card {
@@ -121,10 +133,10 @@ body {
     height: auto;
     font-size: 1.3em;
     border-radius: 12px;
-    box-shadow: 1px 2px 6px #474747;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     padding: 20px;
-    flex-wrap: wrap;
     transition: all 0.3s ease-in;
+    margin: 20px;
 }
 
 .results .card:hover {

@@ -28,7 +28,14 @@ function Home() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedTag, setSelectedTag] = useState<string>("All");
-  const searchTags: string[] = ["All", "Designer", "Developer", "Photographer"];
+  const searchTags: string[] = [
+    "All",
+    "Designer",
+    "Developer",
+    "Photographer",
+    "Gamer",
+    "Others",
+  ];
 
   useEffect(() => {
     setLoading(true);
@@ -109,7 +116,7 @@ function Home() {
             userList.map((user: IUser) => (
               <div className="card" key={user._id}>
                 <h3>{user.username}</h3>
-                <p>{user.role || "No role set"}</p>
+                <p>{user.role}</p>
                 <p>{user.email || "No email"}</p>
               </div>
             ))
