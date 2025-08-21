@@ -8,6 +8,15 @@ import { useNavigate } from "react-router-dom";
 export default function Register() {
   const navigate = useNavigate();
 
+  // Define the roles for the dropdown menu
+  const roleOptions = [
+    "Designer",
+    "Developer",
+    "Photographer",
+    "Gamer",
+    "Others",
+  ];
+
   const [formData, setFormData] = useState({
     email: "",
     username: "",
@@ -19,7 +28,9 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -27,6 +38,13 @@ export default function Register() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loading) return;
+    setError("");
+
+    // Check if a role was selected
+    if (!formData.role) {
+      setError("**Please select a role**");
+      return;
+    }
 
     // password confirmation
     if (formData.password !== formData.confirmPassword) {
@@ -103,16 +121,23 @@ export default function Register() {
           value={formData.confirmPassword}
         />
 
-        <input
-          type="text"
+        <select
           className="input-box"
-          placeholder="Role (e.g. Designer, Developer, Gamer)"
           name="role"
-          onChange={handleChange}
           value={formData.role}
-        />
+          onChange={handleChange}
+          required
+        >
+          <option value="" disabled>
+            Select Role
+          </option>
+          {roleOptions.map((role) => (
+            <option key={role} value={role}>
+              {role}
+            </option>
+          ))}
+        </select>
 
-        {/* Show error */}
         {error && <p style={{ color: "red" }}>{error}</p>}
 
         <button type="submit" disabled={loading}>

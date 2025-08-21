@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family:"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   background-color: #f4f6f8;
   color: #333;
 }
@@ -76,12 +76,12 @@ body {
 .homepage-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 40px 20px; 
 }
 
 .hero-section {
   text-align: center;
-  margin-bottom: 40px;
+  margin: 40px 0;
 }
 
 .hero-section h1 {
@@ -97,6 +97,7 @@ body {
   margin-bottom: 30px;
 }
 
+/* search bar */
 .search-bar {
   position: relative;
   max-width: 600px;
@@ -127,6 +128,7 @@ body {
   height: 20px;
 }
 
+/* search-tags */
 .search-tags {
   display: flex;
   justify-content: center;
@@ -156,6 +158,7 @@ body {
   border-color: #007bff;
 }
 
+/* users cards */
 .results-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
