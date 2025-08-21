@@ -3,8 +3,11 @@ import "./register.css";
 import type { AxiosError, AxiosResponse } from "axios";
 import { register } from "../../Shared/config/api";
 import UserIcon from "../../assets/User-Icon.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     username: "",
@@ -79,6 +82,16 @@ export default function Register() {
         <button type="submit" disabled={loading}>
           {loading ? "Registering..." : "REGISTER"}
         </button>
+
+        <p className="swicher">
+          Already have an account? {""}
+          <span
+            onClick={() => navigate("/login")}
+            style={{ color: "blue", cursor: "pointer" }}
+          >
+            Login now
+          </span>
+        </p>
       </form>
     </div>
   );

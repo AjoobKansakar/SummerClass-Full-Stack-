@@ -3,6 +3,7 @@ import "./homepage.css";
 import { useNavigate } from "react-router-dom";
 import type { AxiosResponse } from "axios";
 import { searchUserApi } from "../../Shared/config/api";
+import SearchIcon from "../../assets/Search_icon.svg";
 
 interface IUser {
   _id: string;
@@ -76,13 +77,18 @@ function Home() {
       </div>
 
       <div className="hero-wrapper">
-        <h1> Search Your Professional </h1>
-        <input
-          type="text"
-          onChange={onValueChange}
-          value={search}
-          placeholder="Search"
-        />
+        <h1>Search Your Professional</h1>
+
+        <div className="search-bar">
+          <img src={SearchIcon} alt="Search" className="search-icon" />
+          <input
+            id="search-text"
+            type="text"
+            onChange={onValueChange}
+            value={search}
+            placeholder="Search"
+          />
+        </div>
       </div>
 
       <div className="search-tags">
