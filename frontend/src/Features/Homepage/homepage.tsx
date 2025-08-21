@@ -11,6 +11,7 @@ interface IUser {
   email: string;
   role?: string;
 }
+
 interface IUserResponse {
   message: string;
   users: IUser[];
@@ -82,7 +83,6 @@ function Home() {
           Logout
         </button>
       </div>
-
       <div className="hero-wrapper">
         <h1>Search Your Professional</h1>
 
@@ -97,7 +97,6 @@ function Home() {
           />
         </div>
       </div>
-
       <div className="search-tags">
         {searchTags.map((tag: string) => (
           <div

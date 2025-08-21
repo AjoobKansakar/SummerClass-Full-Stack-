@@ -45,6 +45,7 @@ export default function Register() {
         console.log("Registration successful:", res);
         alert("Registration is completed!");
         setError("");
+        navigate("/login");
       })
       .catch((error: AxiosError) => {
         console.error("Registration error:", error);

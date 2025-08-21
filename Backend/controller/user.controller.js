@@ -13,6 +13,7 @@ export async function searchUser(req, res) {
     try {
         const { username, role } = req.query;
         let query = {};
+        
         if (username && username.trim() !== "") {
             query.username = { $regex: username, $options: "i" };
         }
